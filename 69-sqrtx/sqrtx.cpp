@@ -2,7 +2,10 @@ class Solution {
 public:
     int mySqrt(int x) {
 
-        int low = 0;
+        if (x == 0 || x == 1)
+            return x;
+
+        int low = 1;
         int high = x;
         int ans = 0;
 
@@ -10,17 +13,14 @@ public:
 
             int mid = low + (high - low) / 2;
 
-            long long square = 1LL * mid * mid;
-
-            if (square == x) {
+            if (mid == x / mid) {
                 return mid;
             }
 
-            if (square < x) {
+            if (mid < x / mid) {
                 ans = mid;
                 low = mid + 1;
-            }
-            else {
+            } else {
                 high = mid - 1;
             }
         }
