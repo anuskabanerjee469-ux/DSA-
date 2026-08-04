@@ -8,14 +8,26 @@ public:
         if (m > n)
             return false;
 
-        sort(s1.begin(), s1.end());
+        vector<int> freq1(26, 0);
+        vector<int> window(26, 0);
 
-        for (int i = 0; i <= n - m; i++) {
+        for (char c : s1)
+            freq1[c - 'a']++;
 
-            string temp = s2.substr(i, m);
-            sort(temp.begin(), temp.end());
+        // First window
+        for (int i = 0; i < m; i++)
+            window[s2[i] - 'a']++;
 
-            if (temp == s1)
+        if (freq1 == window)
+            return true;
+
+        // Sliding window
+        for (int i = m; i < n; i++) {
+
+            window[s2[i] - 'a']++;          // Add new character
+            window[s2[i - m] - 'a']--;      // Remove old character
+
+            if (freq1 == window)
                 return true;
         }
 
